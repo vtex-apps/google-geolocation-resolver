@@ -1,0 +1,16 @@
+{
+  "vendor": "vtex",
+  "name": "google-geolocation-resolver",
+  "version": "0.0.1",
+  "title": "Google Geolocation Resolver",
+  "description": "Implements the Geolocation GraphQL interface with the Google Maps API",
+  "credentialType": "absolute",
+  "builders": {
+    "node": "6.x",
+    "docs": "0.x"
+  },
+  "dependencies": {
+    "vtex.geolocation-graphql-interface": "0.x"
+  },
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
+}
