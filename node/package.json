@@ -1,0 +1,10 @@
+{
+  "private": "true",
+  "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.1.6"
+  },
+  "devDependencies": {
+    "@types/googlemaps": "^3.39.13",
+    "@vtex/api": "6.36.2"
+  }
+}
