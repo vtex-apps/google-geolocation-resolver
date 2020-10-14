@@ -1,10 +1,11 @@
 {
   "private": "true",
   "dependencies": {
-    "@googlemaps/google-maps-services-js": "^3.1.6"
+    "@googlemaps/google-maps-services-js": "^3.1.6",
+    "vtex.geolocation-graphql-interface": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.0.1/public"
   },
   "devDependencies": {
     "@types/googlemaps": "^3.39.13",
-    "@vtex/api": "6.36.2"
+    "@vtex/api": "6.36.3"
   }
 }

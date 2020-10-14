@@ -9,8 +9,39 @@
     "node": "6.x",
     "docs": "0.x"
   },
-  "dependencies": {
-    "vtex.geolocation-graphql-interface": "0.x"
+  "settingsSchema": {
+    "title": "Google Geolocation Resolver",
+    "description": "Implements the Geolocation GraphQL interface with the Google Maps API",
+    "type": "object",
+    "properties": {
+      "apiKey": {
+        "title": "API Key",
+        "description": "API key used to access Google Maps API",
+        "type": "string"
+      }
+    }
   },
+  "dependencies": {
+    "vtex.geolocation-graphql-interface": "0.x",
+    "vtex.messages": "1.x"
+  },
+  "policies": [
+    {
+      "name": "colossus-fire-event"
+    },
+    {
+      "name": "colossus-write-logs"
+    },
+    {
+      "name": "graphql-query"
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "maps.googleapis.com",
+        "path": "/maps/api/*"
+      }
+    }
+  ],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
