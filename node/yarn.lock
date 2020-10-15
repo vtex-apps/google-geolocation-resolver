@@ -1363,9 +1363,13 @@ vary@^1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-"vtex.geolocation-graphql-interface@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.0.1/public":
-  version "0.0.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.0.1/public#fe146db84fb43b33ccec3dc281dd5430056af073"
+"vtex.geolocation-graphql-interface@https://w0geo--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.geolocation-graphql-interface@0.0.2+build1602857548/public/@types/vtex.geolocation-graphql-interface":
+  version "0.0.2"
+  resolved "https://w0geo--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.geolocation-graphql-interface@0.0.2+build1602857548/public/@types/vtex.geolocation-graphql-interface#5ebd6c6c9a3df8e5ce34709a89771dd2f02678e4"
+
+"vtex.messages@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.messages@1.60.2/public/@types/vtex.messages":
+  version "1.60.2"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.messages@1.60.2/public/@types/vtex.messages#e9b6005f11925e99ac3bb56d47d3ea6ad6d18280"
 
 wrappy@1:
   version "1.0.2"

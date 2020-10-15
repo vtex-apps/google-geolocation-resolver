@@ -7,6 +7,7 @@ import {
   AddressGeometry,
 } from '@googlemaps/google-maps-services-js'
 import { IOContext } from '@vtex/api'
+import { Address, AddressSuggestion } from 'vtex.geolocation-graphql-interface'
 
 import countryRules from '../countries/rules'
 import { toAlpha3 } from '../countries/ISO'
