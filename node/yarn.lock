@@ -137,9 +137,9 @@
     "@types/mime" "*"
     "@types/node" "*"
 
-"@types/vtex.geolocation-graphql-interface@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.0.3/public/@types/vtex.geolocation-graphql-interface":
-  version "0.0.3"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.0.3/public/@types/vtex.geolocation-graphql-interface#97a760cb855c05c1306b772c1c35ddd543262f81"
+"@types/vtex.geolocation-graphql-interface@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.0.4/public/@types/vtex.geolocation-graphql-interface":
+  version "0.0.4"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.0.4/public/@types/vtex.geolocation-graphql-interface#81866c68eec0f4f6c0dc97f9fb6e1df16aff194a"
 
 "@vtex/api@6.36.3":
   version "6.36.3"
@@ -1385,9 +1385,9 @@ vary@^1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-"vtex.geolocation-graphql-interface@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.0.3/public":
+"vtex.geolocation-graphql-interface@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.0.4/public":
   version "0.0.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.0.3/public#4fe1ae6eb712708e6a4b689218a5120cb981a074"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.0.4/public#980f425d248494c1c6987accae79bcf0c94910f7"
 
 "vtex.messages@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.messages@1.60.2/public/@types/vtex.messages":
   version "1.60.2"

@@ -7,7 +7,12 @@ import {
   AddressGeometry,
 } from '@googlemaps/google-maps-services-js'
 import { IOContext } from '@vtex/api'
-import { Address, AddressSuggestion } from 'vtex.geolocation-graphql-interface'
+import {
+  Address,
+  AddressSuggestion,
+  QueryGetAddressByExternalIdArgs,
+  QuerySuggestAddressesArgs,
+} from 'vtex.geolocation-graphql-interface'
 
 import countryRules from '../countries/rules'
 import { toAlpha3 } from '../countries/ISO'
@@ -52,7 +57,7 @@ function getLanguage(vtex: IOContext) {
 export const queries = {
   getAddressByExternalId: async (
     _: unknown,
-    args: { id: string },
+    args: QueryGetAddressByExternalIdArgs,
     ctx: Context
   ): Promise<Address> => {
     const { clients, vtex } = ctx
@@ -131,7 +136,7 @@ export const queries = {
 
   suggestAddresses: async (
     _: unknown,
-    args: { searchTerm: string },
+    args: QuerySuggestAddressesArgs,
     ctx: Context
   ): Promise<AddressSuggestion[]> => {
     const { clients, vtex } = ctx
