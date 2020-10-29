@@ -9,5 +9,6 @@
     "@vtex/api": "6.36.3",
     "@types/vtex.geolocation-graphql-interface": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.0.4/public/@types/vtex.geolocation-graphql-interface",
     "vtex.messages": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.messages@1.60.2/public/@types/vtex.messages"
-  }
+  },
+  "version": "0.1.0"
 }
