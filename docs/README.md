@@ -10,7 +10,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
 
-Implements the GraphQL Schema defined here: https://github.com/vtex-apps/search-graphql
+Implements the GraphQL Schema defined here: https://github.com/vtex-apps/geolocation-graphql-interface
 
 ## Configuration 
 
