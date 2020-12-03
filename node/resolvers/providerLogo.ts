@@ -5,6 +5,7 @@ The `src` have two variations, based on weather or not the app is in development
 */
 import { Image } from 'vtex.geolocation-graphql-interface'
 
+// TODO: find a way to translate this to other idioms.
 const ALT_TEXT = 'Google logo'
 
 const getProviderLogo = async (
