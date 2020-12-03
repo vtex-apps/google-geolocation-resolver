@@ -1,7 +1,7 @@
 /*
 The `src` have two variations, based on weather or not the app is in development (linked).
--  Development/linked: https://w0geo--checkoutio.myvtex.com/_v/private/assets/v1/linked/vtex.google-geolocation-resolver@0.1.0/public/logo.png
-- Production/released: https://w0geo--checkoutio.myvtex.com/_v/public/assets/v1/published/vtex.google-geolocation-resolver@0.1.0/public/logo.png
+-  Development/linked: [...]/private/assets/v1/linked/[...]
+- Production/released: [...]/public/assets/v1/published/[...]
 */
 import { Image } from 'vtex.geolocation-graphql-interface'
 

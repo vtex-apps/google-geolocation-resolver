@@ -32,3 +32,15 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Lint project
         uses: vtex/action-lint@master
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@master
+        with:
+          node-version: 12.x
+        env:
+          RUNNER_TEMP: /tmp
+      - uses: vtex/action-io-app-test@master
