@@ -15,5 +15,5 @@
     "@vtex/test-tools": "^3.3.2",
     "vtex.messages": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.messages@1.60.2/public/@types/vtex.messages"
   },
-  "version": "0.1.0"
+  "version": "0.2.0"
 }
