@@ -1549,9 +1549,9 @@
   dependencies:
     "@types/react-test-renderer" "*"
 
-"@types/vtex.geolocation-graphql-interface@https://w0geo--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.geolocation-graphql-interface@0.0.4+builde03870348e58c5b2/public/@types/vtex.geolocation-graphql-interface":
-  version "0.0.4"
-  resolved "https://w0geo--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.geolocation-graphql-interface@0.0.4+builde03870348e58c5b2/public/@types/vtex.geolocation-graphql-interface#d5112d130cfe7a3da7e0855d32abdb2d2ad370c3"
+"@types/vtex.geolocation-graphql-interface@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.1.0/public/@types/vtex.geolocation-graphql-interface":
+  version "0.1.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.1.0/public/@types/vtex.geolocation-graphql-interface#e7b1cf2f68dcd0c1b6252c723839fd1f9505cfc7"
 
 "@types/yargs-parser@*":
   version "15.0.0"
@@ -5927,9 +5927,9 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-"vtex.geolocation-graphql-interface@https://w0geo--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.geolocation-graphql-interface@0.0.4+builde03870348e58c5b2/public":
+"vtex.geolocation-graphql-interface@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.1.0/public":
   version "0.0.0"
-  resolved "https://w0geo--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.geolocation-graphql-interface@0.0.4+builde03870348e58c5b2/public#b59a69c71ac415292d557673a58719115be9dfec"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.1.0/public#a92ef5f3b1b3ae6f7fb1c6b8461dfa099e2c66c3"
 
 "vtex.messages@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.messages@1.60.2/public/@types/vtex.messages":
   version "1.60.2"
