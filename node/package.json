@@ -6,11 +6,13 @@
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.1.6",
     "vtex.geolocation-graphql-interface": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.1.0/public"
+    "uuid": "^8.3.1",
   },
   "devDependencies": {
     "@types/googlemaps": "^3.39.13",
     "@types/jest": "^26.0.16",
     "@types/vtex.geolocation-graphql-interface": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.geolocation-graphql-interface@0.1.0/public/@types/vtex.geolocation-graphql-interface",
+    "@types/uuid": "^8.3.0",
     "@vtex/api": "6.37.0",
     "@vtex/test-tools": "^3.3.2",
     "vtex.messages": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.messages@1.60.2/public/@types/vtex.messages"
