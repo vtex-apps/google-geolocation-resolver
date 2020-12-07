@@ -1,9 +1,11 @@
 import providerLogo from './providerLogo'
-import { queries as searchQueries } from './search'
+import suggestAddresses from './suggestAddresses'
+import getAddressByExternalId from './getAddressByExternalId'
 
 export const resolvers = {
   Query: {
     providerLogo,
-    ...searchQueries,
+    suggestAddresses,
+    getAddressByExternalId,
   },
 }
