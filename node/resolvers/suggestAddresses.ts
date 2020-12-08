@@ -27,16 +27,21 @@ const suggestAddresses = async (
   ctx: Context
 ): Promise<AddressSuggestion[]> => {
   const { clients, vtex } = ctx
-  const { searchTerm } = args
+  const { searchTerm, sessionToken } = args
   const { apiKey } = await clients.apps.getAppSettings(process.env.VTEX_APP_ID)
 
   const client = clients.google
+
+  if (!sessionToken) {
+    vtex.logger.warn('No session token found. Additional charges may apply')
+  }
 
   const response = await client.placeAutocomplete({
     params: {
       input: searchTerm,
       language: getLanguage(vtex),
       types: PlaceAutocompleteType.address,
+      sessiontoken: sessionToken ?? undefined,
       key: apiKey,
     },
     timeout: 1000,

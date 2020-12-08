@@ -57,15 +57,20 @@ const getAddressByExternalId = async (
   ctx: Context
 ): Promise<Address> => {
   const { clients, vtex } = ctx
-  const { id } = args
+  const { id, sessionToken } = args
   const { apiKey } = await clients.apps.getAppSettings(process.env.VTEX_APP_ID)
 
   const client = clients.google
+
+  if (!sessionToken) {
+    vtex.logger.warn('No session token found. Additional charges may apply')
+  }
 
   const response = await client.placeDetails({
     params: {
       place_id: id,
       language: getLanguage(vtex),
+      sessiontoken: sessionToken ?? undefined,
       key: apiKey,
     },
     timeout: 1000,
