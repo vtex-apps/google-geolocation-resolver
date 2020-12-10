@@ -6,10 +6,7 @@ import {
   AddressGeometry,
 } from '@googlemaps/google-maps-services-js'
 import { IOContext } from '@vtex/api'
-import {
-  Address,
-  QueryGetAddressByExternalIdArgs,
-} from 'vtex.geolocation-graphql-interface'
+import { Address, QueryAddressArgs } from 'vtex.geolocation-graphql-interface'
 
 import countryRules from '../countries/rules'
 import { toAlpha3 } from '../countries/ISO'
@@ -51,13 +48,13 @@ function getLanguage(vtex: IOContext) {
   return language as Language
 }
 
-const getAddressByExternalId = async (
+const getAddress = async (
   _: unknown,
-  args: QueryGetAddressByExternalIdArgs,
+  args: QueryAddressArgs,
   ctx: Context
 ): Promise<Address> => {
   const { clients, vtex } = ctx
-  const { id, sessionToken } = args
+  const { externalId, sessionToken } = args
   const { apiKey } = await clients.apps.getAppSettings(process.env.VTEX_APP_ID)
 
   const client = clients.google
@@ -68,7 +65,7 @@ const getAddressByExternalId = async (
 
   const response = await client.placeDetails({
     params: {
-      place_id: id,
+      place_id: externalId,
       language: getLanguage(vtex),
       sessiontoken: sessionToken ?? undefined,
       key: apiKey,
@@ -132,4 +129,4 @@ const getAddressByExternalId = async (
   )
 }
 
-export default getAddressByExternalId
+export default getAddress
