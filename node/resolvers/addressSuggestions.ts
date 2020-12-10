@@ -6,7 +6,7 @@ import {
 import { IOContext } from '@vtex/api'
 import {
   AddressSuggestion,
-  QuerySuggestAddressesArgs,
+  QueryAddressSuggestionsArgs,
 } from 'vtex.geolocation-graphql-interface'
 
 function getLanguage(vtex: IOContext) {
@@ -21,9 +21,9 @@ function getLanguage(vtex: IOContext) {
   return language as Language
 }
 
-const suggestAddresses = async (
+const getAddressSuggestions = async (
   _: unknown,
-  args: QuerySuggestAddressesArgs,
+  args: QueryAddressSuggestionsArgs,
   ctx: Context
 ): Promise<AddressSuggestion[]> => {
   const { clients, vtex } = ctx
@@ -68,4 +68,4 @@ const suggestAddresses = async (
   )
 }
 
-export default suggestAddresses
+export default getAddressSuggestions
