@@ -1,9 +1,13 @@
 import providerLogo from './providerLogo'
-import { queries as searchQueries } from './search'
+import sessionToken from './sessionToken'
+import addressSuggestions from './addressSuggestions'
+import address from './address'
 
 export const resolvers = {
   Query: {
     providerLogo,
-    ...searchQueries,
+    sessionToken,
+    addressSuggestions,
+    address,
   },
 }
