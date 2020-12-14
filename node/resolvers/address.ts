@@ -1,11 +1,10 @@
 import {
   Status,
-  Language,
   AddressType,
   Place,
   AddressGeometry,
+  Language,
 } from '@googlemaps/google-maps-services-js'
-import { IOContext } from '@vtex/api'
 import { Address, QueryAddressArgs } from 'vtex.geolocation-graphql-interface'
 
 import countryRules from '../countries/rules'
@@ -36,18 +35,6 @@ function getCountry(place: Place) {
     : null
 }
 
-function getLanguage(vtex: IOContext) {
-  const language = vtex.locale?.replace('_', '-') ?? ''
-
-  if (!(language in Language)) {
-    vtex.logger.warn(
-      `"${language}" is not a valid language. See the list of supported languages on https://developers.google.com/maps/faq#languagesupport`
-    )
-  }
-
-  return language as Language
-}
-
 const getAddress = async (
   _: unknown,
   args: QueryAddressArgs,
@@ -63,10 +50,16 @@ const getAddress = async (
     vtex.logger.warn('No session token found. Additional charges may apply')
   }
 
+  if (!Object.values(Language).includes(vtex.locale as Language)) {
+    vtex.logger.warn(
+      `"${vtex.locale}" is not a valid language. See the list of supported languages on https://developers.google.com/maps/faq#languagesupport`
+    )
+  }
+
   const response = await client.placeDetails({
     params: {
       place_id: externalId,
-      language: getLanguage(vtex),
+      language: vtex.locale ? (vtex.locale as Language) : undefined,
       sessiontoken: sessionToken ?? undefined,
       key: apiKey,
     },

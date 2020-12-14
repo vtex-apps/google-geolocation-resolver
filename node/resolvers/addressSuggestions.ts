@@ -3,23 +3,10 @@ import {
   PlaceAutocompleteType,
   Status,
 } from '@googlemaps/google-maps-services-js'
-import { IOContext } from '@vtex/api'
 import {
   AddressSuggestion,
   QueryAddressSuggestionsArgs,
 } from 'vtex.geolocation-graphql-interface'
-
-function getLanguage(vtex: IOContext) {
-  const language = vtex.locale?.replace('_', '-') ?? ''
-
-  if (!(language in Language)) {
-    vtex.logger.warn(
-      `"${language}" is not a valid language. See the list of supported languages on https://developers.google.com/maps/faq#languagesupport`
-    )
-  }
-
-  return language as Language
-}
 
 const getAddressSuggestions = async (
   _: unknown,
@@ -36,10 +23,16 @@ const getAddressSuggestions = async (
     vtex.logger.warn('No session token found. Additional charges may apply')
   }
 
+  if (!Object.values(Language).includes(vtex.locale as Language)) {
+    vtex.logger.warn(
+      `"${vtex.locale}" is not a valid language. See the list of supported languages on https://developers.google.com/maps/faq#languagesupport`
+    )
+  }
+
   const response = await client.placeAutocomplete({
     params: {
       input: searchTerm,
-      language: getLanguage(vtex),
+      language: vtex.locale,
       types: PlaceAutocompleteType.address,
       sessiontoken: sessionToken ?? undefined,
       key: apiKey,
