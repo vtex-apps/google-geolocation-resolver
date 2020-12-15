@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "google-geolocation-resolver",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "title": "Google Geolocation Resolver",
   "description": "Implements the Geolocation GraphQL interface with the Google Maps API",
   "credentialType": "absolute",
