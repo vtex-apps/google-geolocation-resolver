@@ -4,7 +4,7 @@ import schema from 'vtex.geolocation-graphql-interface/graphql'
 import { Clients } from './clients'
 import { resolvers } from './resolvers'
 
-const DEFAULT_TIMEOUT_MS = 2 * 1000
+const DEFAULT_TIMEOUT_MS = 5 * 1000
 
 export default new Service<Clients, RecorderState, ParamsContext>({
   clients: {
