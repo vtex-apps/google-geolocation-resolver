@@ -37,29 +37,25 @@ function getCountry(place: Place) {
 
 const getAddress = async (
   _: unknown,
-  args: QueryAddressArgs,
-  ctx: Context
+  { externalId, sessionToken }: QueryAddressArgs,
+  { clients: { apps, google }, vtex: { logger, locale } }: Context
 ): Promise<Address> => {
-  const { clients, vtex } = ctx
-  const { externalId, sessionToken } = args
-  const { apiKey } = await clients.apps.getAppSettings(process.env.VTEX_APP_ID)
-
-  const client = clients.google
+  const { apiKey } = await apps.getAppSettings(process.env.VTEX_APP_ID)
 
   if (!sessionToken) {
-    vtex.logger.warn('No session token found. Additional charges may apply')
+    logger.warn('No session token found. Additional charges may apply')
   }
 
-  if (!Object.values(Language).includes(vtex.locale as Language)) {
-    vtex.logger.warn(
-      `"${vtex.locale}" is not a valid language. See the list of supported languages on https://developers.google.com/maps/faq#languagesupport`
+  if (!Object.values(Language).includes(locale as Language)) {
+    logger.warn(
+      `"${locale}" is not a valid language. See the list of supported languages on https://developers.google.com/maps/faq#languagesupport`
     )
   }
 
-  const response = await client.placeDetails({
+  const response = await google.placeDetails({
     params: {
       place_id: externalId,
-      language: vtex.locale ? (vtex.locale as Language) : undefined,
+      language: locale ? (locale as Language) : undefined,
       sessiontoken: sessionToken ?? undefined,
       key: apiKey,
     },
@@ -67,7 +63,7 @@ const getAddress = async (
   })
 
   if (response.statusText !== Status.OK) {
-    vtex.logger.error(response)
+    logger.error(response)
   }
 
   const { result: place } = response.data
@@ -77,9 +73,7 @@ const getAddress = async (
   const rules = countryRules[country!]
 
   if (!rules) {
-    vtex.logger.warn(
-      `We don't have geolocation rules for the country: ${country}`
-    )
+    logger.warn(`We don't have geolocation rules for the country: ${country}`)
 
     return {} as Address
   }

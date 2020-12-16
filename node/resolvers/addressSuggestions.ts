@@ -10,29 +10,25 @@ import {
 
 const getAddressSuggestions = async (
   _: unknown,
-  args: QueryAddressSuggestionsArgs,
-  ctx: Context
+  { searchTerm, sessionToken }: QueryAddressSuggestionsArgs,
+  { clients: { apps, google }, vtex: { logger, locale } }: Context
 ): Promise<AddressSuggestion[]> => {
-  const { clients, vtex } = ctx
-  const { searchTerm, sessionToken } = args
-  const { apiKey } = await clients.apps.getAppSettings(process.env.VTEX_APP_ID)
-
-  const client = clients.google
+  const { apiKey } = await apps.getAppSettings(process.env.VTEX_APP_ID)
 
   if (!sessionToken) {
-    vtex.logger.warn('No session token found. Additional charges may apply')
+    logger.warn('No session token found. Additional charges may apply')
   }
 
-  if (!Object.values(Language).includes(vtex.locale as Language)) {
-    vtex.logger.warn(
-      `"${vtex.locale}" is not a valid language. See the list of supported languages on https://developers.google.com/maps/faq#languagesupport`
+  if (!Object.values(Language).includes(locale as Language)) {
+    logger.warn(
+      `"${locale}" is not a valid language. See the list of supported languages on https://developers.google.com/maps/faq#languagesupport`
     )
   }
 
-  const response = await client.placeAutocomplete({
+  const response = await google.placeAutocomplete({
     params: {
       input: searchTerm,
-      language: vtex.locale,
+      language: locale,
       types: PlaceAutocompleteType.address,
       sessiontoken: sessionToken ?? undefined,
       key: apiKey,
@@ -41,21 +37,27 @@ const getAddressSuggestions = async (
   })
 
   if (response.statusText !== Status.OK) {
-    vtex.logger.error(response)
+    logger.error(response)
 
     return []
   }
 
   return response.data.predictions.map(
-    (googleSuggestion): AddressSuggestion => {
+    ({
+      description,
+      place_id: externalId,
+      structured_formatting: {
+        main_text: mainText,
+        secondary_text: secondaryText,
+        main_text_matched_substrings: [mainTextMatchInterval],
+      },
+    }): AddressSuggestion => {
       return {
-        description: googleSuggestion.description,
-        mainText: googleSuggestion.structured_formatting.main_text,
-        mainTextMatchInterval:
-          googleSuggestion.structured_formatting
-            .main_text_matched_substrings[0],
-        secondaryText: googleSuggestion.structured_formatting.secondary_text,
-        externalId: googleSuggestion.place_id,
+        description,
+        mainText,
+        mainTextMatchInterval,
+        secondaryText,
+        externalId,
       }
     }
   )
