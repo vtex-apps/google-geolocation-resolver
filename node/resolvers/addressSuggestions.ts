@@ -3,43 +3,32 @@ import {
   PlaceAutocompleteType,
   Status,
 } from '@googlemaps/google-maps-services-js'
-import { IOContext } from '@vtex/api'
 import {
   AddressSuggestion,
   QueryAddressSuggestionsArgs,
 } from 'vtex.geolocation-graphql-interface'
 
-function getLanguage(vtex: IOContext) {
-  const language = vtex.locale?.replace('_', '-') ?? ''
+const getAddressSuggestions = async (
+  _: unknown,
+  { searchTerm, sessionToken }: QueryAddressSuggestionsArgs,
+  { clients: { apps, google }, vtex: { logger, locale } }: Context
+): Promise<AddressSuggestion[]> => {
+  const { apiKey } = await apps.getAppSettings(process.env.VTEX_APP_ID)
 
-  if (!(language in Language)) {
-    vtex.logger.warn(
-      `"${language}" is not a valid language. See the list of supported languages on https://developers.google.com/maps/faq#languagesupport`
+  if (!sessionToken) {
+    logger.warn('No session token found. Additional charges may apply')
+  }
+
+  if (!Object.values(Language).includes(locale as Language)) {
+    logger.warn(
+      `"${locale}" is not a valid language. See the list of supported languages on https://developers.google.com/maps/faq#languagesupport`
     )
   }
 
-  return language as Language
-}
-
-const getAddressSuggestions = async (
-  _: unknown,
-  args: QueryAddressSuggestionsArgs,
-  ctx: Context
-): Promise<AddressSuggestion[]> => {
-  const { clients, vtex } = ctx
-  const { searchTerm, sessionToken } = args
-  const { apiKey } = await clients.apps.getAppSettings(process.env.VTEX_APP_ID)
-
-  const client = clients.google
-
-  if (!sessionToken) {
-    vtex.logger.warn('No session token found. Additional charges may apply')
-  }
-
-  const response = await client.placeAutocomplete({
+  const response = await google.placeAutocomplete({
     params: {
       input: searchTerm,
-      language: getLanguage(vtex),
+      language: locale,
       types: PlaceAutocompleteType.address,
       sessiontoken: sessionToken ?? undefined,
       key: apiKey,
@@ -48,21 +37,27 @@ const getAddressSuggestions = async (
   })
 
   if (response.statusText !== Status.OK) {
-    vtex.logger.error(response)
+    logger.error(response)
 
     return []
   }
 
   return response.data.predictions.map(
-    (googleSuggestion): AddressSuggestion => {
+    ({
+      description,
+      place_id: externalId,
+      structured_formatting: {
+        main_text: mainText,
+        secondary_text: secondaryText,
+        main_text_matched_substrings: [mainTextMatchInterval],
+      },
+    }): AddressSuggestion => {
       return {
-        description: googleSuggestion.description,
-        mainText: googleSuggestion.structured_formatting.main_text,
-        mainTextMatchInterval:
-          googleSuggestion.structured_formatting
-            .main_text_matched_substrings[0],
-        secondaryText: googleSuggestion.structured_formatting.secondary_text,
-        externalId: googleSuggestion.place_id,
+        description,
+        mainText,
+        mainTextMatchInterval,
+        secondaryText,
+        externalId,
       }
     }
   )

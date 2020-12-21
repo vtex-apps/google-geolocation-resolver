@@ -1,11 +1,10 @@
 import {
   Status,
-  Language,
   AddressType,
   Place,
   AddressGeometry,
+  Language,
 } from '@googlemaps/google-maps-services-js'
-import { IOContext } from '@vtex/api'
 import { Address, QueryAddressArgs } from 'vtex.geolocation-graphql-interface'
 
 import countryRules from '../countries/rules'
@@ -36,37 +35,27 @@ function getCountry(place: Place) {
     : null
 }
 
-function getLanguage(vtex: IOContext) {
-  const language = vtex.locale?.replace('_', '-') ?? ''
+const getAddress = async (
+  _: unknown,
+  { externalId, sessionToken }: QueryAddressArgs,
+  { clients: { apps, google }, vtex: { logger, locale } }: Context
+): Promise<Address> => {
+  const { apiKey } = await apps.getAppSettings(process.env.VTEX_APP_ID)
 
-  if (!(language in Language)) {
-    vtex.logger.warn(
-      `"${language}" is not a valid language. See the list of supported languages on https://developers.google.com/maps/faq#languagesupport`
+  if (!sessionToken) {
+    logger.warn('No session token found. Additional charges may apply')
+  }
+
+  if (!Object.values(Language).includes(locale as Language)) {
+    logger.warn(
+      `"${locale}" is not a valid language. See the list of supported languages on https://developers.google.com/maps/faq#languagesupport`
     )
   }
 
-  return language as Language
-}
-
-const getAddress = async (
-  _: unknown,
-  args: QueryAddressArgs,
-  ctx: Context
-): Promise<Address> => {
-  const { clients, vtex } = ctx
-  const { externalId, sessionToken } = args
-  const { apiKey } = await clients.apps.getAppSettings(process.env.VTEX_APP_ID)
-
-  const client = clients.google
-
-  if (!sessionToken) {
-    vtex.logger.warn('No session token found. Additional charges may apply')
-  }
-
-  const response = await client.placeDetails({
+  const response = await google.placeDetails({
     params: {
       place_id: externalId,
-      language: getLanguage(vtex),
+      language: locale ? (locale as Language) : undefined,
       sessiontoken: sessionToken ?? undefined,
       key: apiKey,
     },
@@ -74,7 +63,7 @@ const getAddress = async (
   })
 
   if (response.statusText !== Status.OK) {
-    vtex.logger.error(response)
+    logger.error(response)
   }
 
   const { result: place } = response.data
@@ -84,9 +73,7 @@ const getAddress = async (
   const rules = countryRules[country!]
 
   if (!rules) {
-    vtex.logger.warn(
-      `We don't have geolocation rules for the country: ${country}`
-    )
+    logger.warn(`We don't have geolocation rules for the country: ${country}`)
 
     return {} as Address
   }

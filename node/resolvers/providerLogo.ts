@@ -11,13 +11,8 @@ const ALT_TEXT = 'Google logo'
 const getProviderLogo = async (
   _: unknown,
   _args: unknown,
-  ctx: Context
+  { clients: { apps }, vtex: { host } }: Context
 ): Promise<Image> => {
-  const {
-    clients: { apps },
-    vtex: { host },
-  } = ctx
-
   const appId = process.env.VTEX_APP_ID
   const appManifest = await apps.getApp(appId)
   const linked = appManifest.version.includes('+')
