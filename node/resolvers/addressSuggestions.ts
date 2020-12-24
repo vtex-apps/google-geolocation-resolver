@@ -62,13 +62,25 @@ const getAddressSuggestions = async (
     timeout: 1000,
   })
 
-  if (response.statusText !== Status.OK) {
+  if (response.statusText !== 'OK') {
     logger.error(response)
 
     return []
   }
 
-  return response.data.predictions.map(
+  const { status, predictions } = response.data
+
+  if (status !== Status.OK) {
+    if (status === Status.ZERO_RESULTS) {
+      logger.warn(response)
+    } else {
+      logger.error(response)
+    }
+
+    return []
+  }
+
+  return predictions.map(
     ({
       description,
       place_id: externalId,

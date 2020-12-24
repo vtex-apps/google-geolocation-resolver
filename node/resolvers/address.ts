@@ -62,11 +62,13 @@ const getAddress = async (
     timeout: 1000,
   })
 
-  if (response.statusText !== Status.OK) {
-    logger.error(response)
-  }
+  const { result: place, status } = response.data
 
-  const { result: place } = response.data
+  if (response.statusText !== 'OK' || status !== Status.OK) {
+    logger.error(response)
+
+    return {}
+  }
 
   const country = getCountry(place)
 
