@@ -57,6 +57,7 @@ const getAddress = async (
       place_id: externalId,
       language: locale ? (locale as Language) : undefined,
       sessiontoken: sessionToken ?? undefined,
+      fields: ['address_component', 'geometry'],
       key: apiKey,
     },
     timeout: 1000,
