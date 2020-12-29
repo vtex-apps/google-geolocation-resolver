@@ -57,16 +57,19 @@ const getAddress = async (
       place_id: externalId,
       language: locale ? (locale as Language) : undefined,
       sessiontoken: sessionToken ?? undefined,
+      fields: ['address_component', 'geometry'],
       key: apiKey,
     },
     timeout: 1000,
   })
 
-  if (response.statusText !== Status.OK) {
-    logger.error(response)
-  }
+  const { result: place, status } = response.data
 
-  const { result: place } = response.data
+  if (response.statusText !== 'OK' || status !== Status.OK) {
+    logger.error(response)
+
+    return {}
+  }
 
   const country = getCountry(place)
 

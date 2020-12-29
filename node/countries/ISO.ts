@@ -261,3 +261,11 @@ export const toAlpha2 = (country: ISOAlpha3): ISOAlpha2 => {
 
   return countryISOMapping[index][0]
 }
+
+export const isAlpha2 = (country: string): boolean => {
+  return countryISOMapping.findIndex(([alpha2]) => alpha2 === country) !== -1
+}
+
+export const isAlpha3 = (country: string): boolean => {
+  return countryISOMapping.findIndex(([, alpha3]) => alpha3 === country) !== -1
+}
